@@ -60,7 +60,7 @@ def perpendicular(sl):
 def distance(x1, y1, x2, y2):
     """Generates the distance between 2 points"""
     try:
-        return math.sqrt(((float(x2) - float(x1)) ** 2) + ((float(y2) - float(y1)) ** 2))
+        return (((float(x2) - float(x1)) ** 2) + ((float(y2) - float(y1)) ** 2)) ** .5
     except:
         print("Only use numbers in the distance formula")
 
