@@ -1,4 +1,12 @@
+import math
 from fractions import Fraction
+
+################################################################################
+# Global Constants
+################################################################################
+
+nan = float("nan")
+NaN = nan
 
 ################################################################################
 # Special Classes
@@ -6,7 +14,7 @@ from fractions import Fraction
 
 class Point:
     """Represents a cartographical point"""
-    def __init__(self, x=0, y=0, z=0, dimensions=2):
+    def __init__(self, x, y=0, z=0, dimensions=2, *args, **kwargs):
         self.x = float(x)
         self.y = float(y)
         self.z = float(z)
@@ -14,14 +22,14 @@ class Point:
             
     def __str__(self):
         """Converts a Point instance to a string"""
-        format_string = str()
         if self.dimensions == 3:
-            format_string = "({x}, {y}, {z})"
+            return "({}, {}, {})".format(self.x, self.y, self.z)
         elif self.dimensions == 2:
-            format_string =  "({x}, {y})"
+            return "({}, {})".format(self.x, self.y)
         elif self.dimensions == 1:
-            format_string = "({x})"
-        return format_string.format(self)
+            return "({})".format(self.x)
+        else:
+            return str()
         
     def as_tuple(self):
         """Generates a tuple representation of a point instance"""
@@ -40,17 +48,31 @@ class Point:
         return (((float(otherPoint.x) - float(self.x)) ** 2) + ((float(otherPoint.y) - float(self.y)) ** 2) + ((float(otherPoint.z) - float(self.z)) ** 2)) ** .5
         
     # TODO: Add support for 3D versions of the 2D methods
+    
+    def slope_with_point(self, otherPoint, dimensions=2):
+        """Generates a slope from 2 points. Returns NaN if slope is undefined (perfectly vertical)."""
+        if dimensions == 2:
+            try:
+                return ((float(otherPoint.y) - float(self.y)) / (float(otherPoint.x) - float(self.x)))
+            except ZeroDivisionError as error:
+                return nan
+        else:
+            print("Not 2")
+            return nan
+            
+    def midpoint_with_point(self, otherPoint):
+        return Point((self.x + otherPoint.x) / 2, (self.y + otherPoint.y) / 2, (self.z + otherPoint.z) / 2, math.ceil((self.dimensions + otherPoint.dimensions) / 2))
         
 ################################################################################
 # Global Functions
 ################################################################################
 
 def slope(x1, x2, y1, y2):
-    """Generates a slope from 2 points. Returns None if slope is undefined (perfectly vertical)"""
+    """Generates a slope from 2 points. Returns NaN if slope is undefined (perfectly vertical)"""
     try:
         return ((float(y2) - float(y1)) / (float(x2) - float(x1)))
     except ZeroDivisionError as error:
-        return None
+        return nan
 
 def perpendicular(sl):
     """Generates a slope perpendicular to a given slope"""
@@ -76,3 +98,11 @@ def quad(a, b, c, type="tuple"):
         return str((str(Fraction(answer[0]).limit_denominator()), str(Fraction(answer[1]).limit_denominator()))).replace("'", str())
     else:
         return answer
+
+def sqrt(number):
+    """Calculates a square root more nicely than using math.sqrt or ** .5 in your source"""
+    return number ** .5
+    
+def imaginary_power(power):
+    """Returns a string of the proper value of i raised to the passed-in power"""
+    return ["i", "-1", "-i", "1"][int(power) % 4]
