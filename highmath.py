@@ -9,6 +9,12 @@ nan = float("nan")
 NaN = nan
 
 ################################################################################
+# Configuration Variables
+################################################################################
+
+trigDeg = False
+
+################################################################################
 # Special Classes
 ################################################################################
 
@@ -45,7 +51,7 @@ class Point:
             
     def distance_from_point(self, otherPoint):
         """Finds the distance between 2 cartographical points"""
-        return (((float(otherPoint.x) - float(self.x)) ** 2) + ((float(otherPoint.y) - float(self.y)) ** 2) + ((float(otherPoint.z) - float(self.z)) ** 2)) ** .5
+        return sqrt(((float(otherPoint.x) - float(self.x)) ** 2) + ((float(otherPoint.y) - float(self.y)) ** 2) + ((float(otherPoint.z) - float(self.z)) ** 2))
         
     # TODO: Add support for 3D versions of the 2D methods
     
@@ -82,7 +88,7 @@ def perpendicular(sl):
     
 def distance(x1, y1, x2, y2):
     """Generates the distance between 2 points"""
-    return (((float(x2) - float(x1)) ** 2) + ((float(y2) - float(y1)) ** 2)) ** .5
+    return sqrt((((float(x2) - float(x1)) ** 2) + ((float(y2) - float(y1)) ** 2)))
 
 def compound_interest(principal, monthly, compounds_per_year, time, rate):
     """Calculates the compound interest earned over a given period of time"""
@@ -106,3 +112,58 @@ def sqrt(number):
 def imaginary_power(power):
     """Returns a string of the proper value of i raised to the passed-in power"""
     return ["i", "-1", "-i", "1"][int(power) % 4]
+    
+################################################################################
+# Trigonometric Functions
+################################################################################
+
+# Fun fact: The unit of the trigonometrics functions is on the parameter, and not the output
+
+def acos(x, deg=None, **kwargs):
+    """Computes the arc cosine of the input, in either degrees or radians"""
+    x = float(x)
+    if deg or (trigDeg and deg is None):
+        x = math.radians(x)
+    return math.acos(x)
+    
+def asin(x, deg=None, **kwargs):
+    """Computes the arc sine of the input, in either degrees or radians"""
+    x = float(x)
+    if deg or (trigDeg and deg is None):
+        x = math.radians(x)
+    return math.acos(x)
+    
+def atan(x, deg=None, **kwargs):
+    """Computes the arc tangent of the input, in either degrees or radians"""
+    x = float(x)
+    if deg or (trigDeg and deg is None):
+        x = math.radians(x)
+    return math.atan(x)
+    
+def atan2(y, x, deg=None, **kwargs):
+    """Computes the arc tangent of y/x, in either degrees or radians. Unlike atan(y/x), the signs of both x and y are considered."""
+    x, y = float(x), float(y)
+    if deg or (trigDeg and deg is None):
+        x, y = math.radians(x), math.radians(y)
+    return math.atan2(y, x)
+    
+def cos(x, deg=None, **kwargs):
+    """Computes the cosine of x in either degrees or radians"""
+    x = float(x)
+    if deg or (trigDeg and deg is None):
+        x = math.radians(x)
+    return math.cos(x)
+    
+def sin(x, deg=None, **kwargs):
+    """Computes the sine of x in either degrees or radians"""
+    x = float(x)
+    if deg or (trigDeg and deg is None):
+        x = math.radians(x)
+    return math.sin(x)
+    
+def tan(x, deg=None, **kwargs):
+    """Computes the tangent of x in either degrees or radians"""
+    x = float(x)
+    if deg or (trigDeg and deg is None):
+        x = math.radians(x)
+    return math.tan(x)
