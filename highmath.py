@@ -1,3 +1,4 @@
+"""This is your method of passing Pre-Calculus"""
 import math
 from fractions import Fraction
 
@@ -90,15 +91,14 @@ def distance(x1, y1, x2, y2):
     """Generates the distance between 2 points"""
     return sqrt((((float(x2) - float(x1)) ** 2) + ((float(y2) - float(y1)) ** 2)))
 
-def compound_interest(principal, monthly, compounds_per_year, time, rate):
+def compound_interest(principal, rate, compounds_per_year, time):
     """Calculates the compound interest earned over a given period of time"""
-    return float(principal) * ((1 + (float(rate) / 100)) / float(compounds_per_year)) ** (float(compounds_per_year) * float(time))
+    principal, rate, compounds_per_year, time = float(principal), float(rate), float(compounds_per_year), float(time)
+    return principal * ((1 + ((rate / 100) / compounds_per_year)) ** (compounds_per_year * time))
     
 def quad(a, b, c, type="tuple"):
     """Calculates the value of x in a quadratic equation where the coefficients are the passed-in a, b, and c. Can return a tuple of the answers, or a pretty string, depending on the type parameter"""
-    a = float(a)
-    b = float(b)
-    c = float(c)
+    a, b, c = float(a), float(b), float(c)
     answer =  (((-b + ((b ** 2) - (4 * a * c)) ** .5) / (2 * a)), ((-b - ((b ** 2) - (4 * a * c)) ** .5) / (2 * a)))
     if type == "str" or type == "string":
         return str((str(Fraction(answer[0]).limit_denominator()), str(Fraction(answer[1]).limit_denominator()))).replace("'", str())
@@ -107,17 +107,41 @@ def quad(a, b, c, type="tuple"):
 
 def sqrt(number):
     """Calculates a square root more nicely than using math.sqrt or ** .5 in your source"""
-    return number ** .5
+    return root(number, 2)
+    
+def root(number, index):
+    """Calculates the number to the specified root"""
+    return float(number) ** (1 / float(index))
     
 def imaginary_power(power):
     """Returns a string of the proper value of i raised to the passed-in power"""
     return ["i", "-1", "-i", "1"][int(power) % 4]
     
+def to_fraction(number, format="fract", string=False):
+    """Turns an ordinary float to a Fraction, and optionally turns it into a string"""
+    fraction = Fraction(number).limit_denominator()
+    if format == "str" or format == "string" or string:
+        return str(fraction)
+    else:
+        return fraction
+        
+def arclen(angle, radius, rad=False):
+    """Calculates the size of an arc of a circle"""
+    if not rad:
+        angle = math.degrees(angle)
+    return (angle / 360) * (2 * math.pi * radius)
+
+def sector(angle, radius, rad=False):
+    """Finds the area of a sector of a circle"""
+    if not rad:
+        angle = math.degrees(angle)
+    return (angle / 360) * (math.pi * (radius ** 2))
+
 ################################################################################
 # Trigonometric Functions
 ################################################################################
 
-# Fun fact: The unit of the trigonometrics functions is on the parameter, and not the output
+# Fun fact: The unit of the trigonometric functions is on the parameter, and not the output
 
 def acos(x, deg=None, **kwargs):
     """Computes the arc cosine of the input, in either degrees or radians"""
