@@ -127,13 +127,13 @@ def to_fraction(number, format="fract", string=False):
         
 def arclen(angle, radius, rad=False):
     """Calculates the size of an arc of a circle"""
-    if not rad:
+    if rad:
         angle = math.degrees(angle)
     return (angle / 360) * (2 * math.pi * radius)
 
 def sector(angle, radius, rad=False):
     """Finds the area of a sector of a circle"""
-    if not rad:
+    if rad:
         angle = math.degrees(angle)
     return (angle / 360) * (math.pi * (radius ** 2))
 
