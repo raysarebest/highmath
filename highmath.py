@@ -113,9 +113,13 @@ def root(number, index):
     """Calculates the number to the specified root"""
     return float(number) ** (1 / float(index))
     
-def imaginary_power(power):
+def imaginary_power(power, num=False):
     """Returns a string of the proper value of i raised to the passed-in power"""
-    return ["i", "-1", "-i", "1"][int(power) % 4]
+    index = [int(power) % 4]
+    if num:
+        return [1j, -1, -1j, 1][index]
+    else:
+        return ["i", "-1", "-i", "1"][index]
     
 def to_fraction(number, format="fract", string=False):
     """Turns an ordinary float to a Fraction, and optionally turns it into a string"""
@@ -136,6 +140,12 @@ def sector(angle, radius, rad=False):
     if rad:
         angle = math.degrees(angle)
     return (angle / 360) * (math.pi * (radius ** 2))
+    
+def heron(a, b, c):
+    """Calculates the area of a triangle given the length of each side"""
+    a, b, c = float(a), float(b), float(c)
+    s = (a + b + c) / 2
+    return sqrt(s * (s - a) * (s - b) * (s - c))
 
 ################################################################################
 # Trigonometric Functions
