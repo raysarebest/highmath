@@ -146,6 +146,13 @@ def heron(a, b, c):
     a, b, c = float(a), float(b), float(c)
     s = (a + b + c) / 2
     return sqrt(s * (s - a) * (s - b) * (s - c))
+    
+def segment(angle, radius, rad=False):
+    """Calculates the area of a segment of a circle based on the radius and the given angle"""
+    if rad:
+        angle = math.degrees(angle)
+    # The weird math here calculates the area of a triangle given 2 sides and an angle
+    return sector(angle, radius, rad) - ((1/2) * radius * radius * sin(angle, True))
 
 ################################################################################
 # Trigonometric Functions
