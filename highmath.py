@@ -115,7 +115,7 @@ def root(number, index):
     
 def imaginary_power(power, num=False):
     """Returns a string of the proper value of i raised to the passed-in power"""
-    index = [int(power) % 4]
+    index = int(power) % 4
     if num:
         return [1j, -1, -1j, 1][index]
     else:
